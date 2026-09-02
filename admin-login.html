@@ -1,0 +1,28 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Admin • SamSolution</title><link rel="stylesheet" href="style-premium.css"><style>.login-wrap{min-height:100vh;display:grid;place-items:center;padding:24px}.login{width:min(430px,100%)}.login .brand{font-size:24px;margin-bottom:30px}.login h1{margin:8px 0 10px;font-size:36px}.login p{color:#8e97a7;line-height:1.6}.login label{display:block;color:#9ca5b5;font-size:11px;margin:17px 0 7px}.login input{width:100%;padding:14px;background:#080a0f;border:1px solid #303746;color:#fff;border-radius:10px;outline:none;box-sizing:border-box}.login .btn{width:100%;margin-top:22px}.error{color:#ff9eae!important;font-size:12px;white-space:pre-wrap}.ok{color:#7ff0b2!important;font-size:12px}.hint{font-size:11px!important;color:#70798a!important;margin-top:12px}</style></head><body><div class="login-wrap"><div class="card login"><a class="brand" href="index.html"><span class="brand-mark">✦</span>SAMSOLUTION</a><div class="section-kicker">PAINEL ADMINISTRATIVO</div><h1>Acessar painel</h1><p>Digite somente o usuário administrativo para entrar.</p><label>Usuário</label><input id="user" autocomplete="username" value="admin" autofocus><button class="btn btn-primary" id="enter">Entrar <span>→</span></button><p id="error" class="error"></p><p id="status" class="ok"></p><p class="hint">Acesso: <b>admin</b> • sem senha</p></div></div><script>
+const user=document.getElementById('user');
+const enter=document.getElementById('enter');
+const error=document.getElementById('error');
+enter.onclick=async()=>{
+  error.textContent='';
+  enter.disabled=true;
+  enter.textContent='Entrando…';
+  try{
+    const r=await fetch('/api/admin-login',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      credentials:'same-origin',
+      body:JSON.stringify({user:user.value.trim()})
+    });
+    const d=await r.json();
+    if(!r.ok||!d.ok) throw new Error(d.error||'Não foi possível entrar.');
+    sessionStorage.setItem('samsolution_admin_user','admin');
+    location.replace('/admin.html');
+  }catch(e){
+    error.textContent=e.message;
+    enter.disabled=false;
+    enter.innerHTML='Entrar <span>→</span>';
+  }
+};
+user.addEventListener('keydown',e=>{if(e.key==='Enter')enter.click()});
+enter.click();
+</script></body>

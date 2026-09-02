@@ -1,0 +1,18 @@
+DEPLOY FINAL SAMSOLUTION
+
+1) Crie um projeto NOVO no Vercel.
+2) Envie o conteúdo deste ZIP para a raiz do projeto.
+3) NÃO configure Root Directory para uma subpasta.
+4) Não adicione vercel.json diferente do que já está no projeto.
+5) Em Settings > Environment Variables, configure:
+   MP_ACCESS_TOKEN = token novo do Mercado Pago
+   POSTGRES_URL = URL do PostgreSQL
+6) Faça Redeploy.
+7) Abra /admin
+8) O painel deve abrir diretamente, sem senha. O usuário administrativo é "admin".
+
+IMPORTANTE:
+- O painel abre mesmo antes do banco estar conectado.
+- Sem POSTGRES_URL, o painel mostrará que o banco está pendente e não conseguirá salvar dados.
+- Sem MP_ACCESS_TOKEN, o checkout não conseguirá gerar o PIX real.
+- Não publique o Access Token no HTML, GitHub ou ZIP.

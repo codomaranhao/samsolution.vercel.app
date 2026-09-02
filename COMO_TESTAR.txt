@@ -1,0 +1,17 @@
+SAMSOLUTION — TESTE RÁPIDO
+
+1. Abra index.html.
+2. Clique em Admin.
+3. Usuário: admin
+4. Senha: SamSolution@2026
+5. Lance códigos no estoque.
+6. Volte à loja e faça um pedido.
+
+A página admin.html agora funciona também quando aberta diretamente por arquivo (file://), pois o login DEMO usa localStorage.
+
+MERCADO PAGO:
+Para pagamento real, rode o backend Node:
+npm install
+npm start
+Depois configure MP_ACCESS_TOKEN no .env.
+O webhook precisa de URL HTTPS pública em produção.

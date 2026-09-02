@@ -1,0 +1,30 @@
+SAMSOLUTION — VERCEL + MERCADO PAGO QR PIX
+
+Endpoint:
+POST /api/qr
+
+Exemplo:
+{
+  "amount": 0.01,
+  "description": "Google AI Pro",
+  "name": "Samuel",
+  "phone": "(99) 99999-9999",
+  "email": "SAMUEL@HOTMAIL.COM"
+}
+
+Resposta inclui:
+qr_data, qrData, qrDataUrl, pixCopyPaste, orderId, status, expiresAt.
+
+Variáveis de ambiente no Vercel:
+MP_ACCESS_TOKEN=SEU_ACCESS_TOKEN
+MP_WEBHOOK_SECRET=SEU_SEGREDO
+PRODUCT_NAME=Google AI Pro
+PRODUCT_PRICE=0.01
+DELIVERY_CODE=GEMINI-DEMO-001
+
+Webhook:
+https://SEU-DOMINIO/api/webhook/mercadopago
+
+Não coloque MP_ACCESS_TOKEN no HTML/JS público.
+O endpoint antigo /instore/orders/qr/seller/collectors/... dependia de USER_ID e POS.
+Esta versão usa /v1/orders com QR dinâmico para checkout web.

@@ -1,0 +1,7 @@
+CORREÇÃO APLICADA
+O checkout tinha a expressão regular do e-mail com barras duplicadas, fazendo e-mails válidos serem recusados.
+A validação foi corrigida e aceita formatos como:
+- nome@gmail.com
+- nome.sobrenome@empresa.com.br
+- nome+teste@gmail.com
+- usuario@subdominio.empresa.com.br

@@ -1,0 +1,21 @@
+SAMSOLUTION — VERSÃO FINAL
+
+VISUAL
+O checkout foi refeito do zero e possui CSS próprio, portanto não depende do carregamento de classes inexistentes.
+
+ADMIN DEMO
+URL: admin-login.html
+Usuário: admin
+Senha: SamSolution@2026
+
+MERCADO PAGO
+O backend continua no server.js.
+1) copie .env.example para .env
+2) coloque MP_ACCESS_TOKEN
+3) npm install
+4) npm start
+
+Para webhook em produção use HTTPS público:
+https://SEU-DOMINIO/api/webhook/mercadopago
+
+Não coloque Access Token no HTML.

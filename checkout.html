@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Checkout • SamSolution</title>
+<link rel="stylesheet" href="style-premium.css">
+<style>
+body{min-height:100vh;background:radial-gradient(700px 500px at 8% 5%,#5967ff20,transparent 60%),radial-gradient(650px 500px at 95% 10%,#e26cff14,transparent 60%),#05070b}
+.checkout{width:min(1160px,92%);margin:auto;padding:32px 0 65px}.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:34px}.back{color:#9ca6b5;font-size:13px}.secure{border:1px solid #24483e;background:#0b1b17;border-radius:99px;padding:9px 14px;color:#8fffd0;font-size:11px}.steps{display:flex;align-items:center;margin-bottom:25px}.step{display:flex;align-items:center;gap:10px;color:#697486;font-size:11px}.step .circle{width:35px;height:35px;border-radius:50%;display:grid;place-items:center;border:1px solid #303a4a}.step.active{color:#fff}.step.active .circle{background:#103128;border-color:#65e9b8;color:#72ffc9;box-shadow:0 0 25px #50e5b21c}.line{height:1px;background:#252e3b;flex:1;margin:0 14px}.content{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(300px,.65fr);gap:18px}.box{padding:32px}.title{font-size:38px;line-height:1.05;margin:0 0 8px;letter-spacing:-1.5px}.subtitle{color:#8490a1;font-size:13px;margin:0 0 26px}.fields{display:grid;grid-template-columns:1fr 1fr;gap:15px}.field.full{grid-column:1/-1}.field label{display:block;color:#b9c2cf;font-size:11px;margin-bottom:8px;font-weight:600}.field input{display:block;width:100%;height:51px;border-radius:11px;border:1px solid #303b4c;background:#080c12;color:#fff;padding:0 14px;outline:none;transition:.2s}.field input::placeholder{color:#5f6978}.field input:focus{border-color:#67e8ba;box-shadow:0 0 0 3px #67e8ba12}.notice{display:flex;gap:11px;align-items:center;margin:22px 0;padding:13px;border-radius:11px;border:1px solid #164b3c;background:#091f19;color:#a5ead4;font-size:11px;line-height:1.5}.product{border:1px solid #293446;background:#0a0f16;border-radius:15px;padding:16px;margin-bottom:22px}.product-row{display:flex;gap:13px;align-items:center}.gem{width:55px;height:55px;flex:0 0 55px;border-radius:14px;display:grid;place-items:center;font-size:28px;background:radial-gradient(circle at 30% 20%,#fff,#9ba2ff 34%,#322850 72%);box-shadow:0 0 35px #726cff28}.product h3{font-size:16px;margin:0}.product small{display:block;color:#768192;margin-top:5px}.tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}.tags span{font-size:9px;color:#aab4c2;background:#121a24;border:1px solid #232e3d;padding:7px 9px;border-radius:99px}.total{display:flex;align-items:flex-end;justify-content:space-between;border-top:1px solid #27303d;padding-top:18px}.total span{font-size:13px;color:#a5afbd}.total strong{font-size:30px;color:#70ffc6}.continue{width:100%;height:57px;border:0;border-radius:12px;margin-top:17px;background:linear-gradient(90deg,#16ca79,#36e995);color:#04130c;font-size:15px;font-weight:900;cursor:pointer;box-shadow:0 14px 45px #20dc8720;transition:.2s}.continue:hover{transform:translateY(-2px);box-shadow:0 18px 55px #20dc8740}.terms{text-align:center;color:#5e6877;font-size:10px;line-height:1.6;margin:13px 0 0}.side-title{font-size:19px;margin:0 0 15px}.pix{padding:16px;border-radius:13px;border:1px solid #174f3f;background:linear-gradient(145deg,#0c241d,#0a1117);font-size:12px;line-height:1.6;color:#9cead1}.pix b{color:#75ffca}.benefits{display:grid;gap:9px;margin-top:16px}.benefit{display:flex;gap:10px;padding:12px;border:1px solid #232d3b;background:#0b1017;border-radius:11px}.benefit i{font-style:normal;color:#70ffc5}.benefit strong{font-size:11px}.benefit small{display:block;color:#6e7989;font-size:10px;margin-top:3px}.help{margin-top:15px;padding:14px;border-radius:12px;border:1px solid #242e3c;color:#7e8999;font-size:11px;line-height:1.6}.help b{color:#fff}.foot{text-align:center;color:#596474;font-size:10px;margin-top:25px}.error{display:none;margin-top:12px;color:#ff9cac;font-size:11px}
+@media(max-width:850px){.content{grid-template-columns:1fr}.fields{grid-template-columns:1fr}.field.full{grid-column:auto}.topbar{gap:15px;flex-wrap:wrap}.box{padding:22px}.title{font-size:32px}}
+</style>
+</head>
+<body>
+<main class="checkout">
+<div class="topbar"><a class="brand" href="index.html"><span class="brand-mark">✦</span>SAMSOLUTION</a><div class="secure">🛡 <b>Checkout seguro</b></div><a class="back" href="index.html">← Voltar para a loja</a></div>
+<div class="steps"><div class="step active"><span class="circle">1</span><b>Dados</b></div><div class="line"></div><div class="step"><span class="circle">2</span><b>Pagamento</b></div><div class="line"></div><div class="step"><span class="circle">3</span><b>Entrega</b></div></div>
+<div class="content">
+<section class="card box">
+<div class="section-kicker">FINALIZAÇÃO</div><h1 class="title">Finalizar pedido</h1><p class="subtitle">Preencha seus dados para gerar seu pagamento PIX.</p>
+<div class="fields">
+<div class="field"><label>Nome completo</label><input id="name" type="text" placeholder="Seu nome completo" autocomplete="name"></div>
+<div class="field"><label>WhatsApp</label><input id="phone" type="tel" placeholder="(99) 99999-9999" autocomplete="tel"></div>
+<div class="field full"><label>E-mail</label><input id="email" type="text" inputmode="email" autocomplete="email" autocapitalize="none" spellcheck="false" placeholder="voce@email.com"></div>
+</div>
+<div class="notice"><span style="font-size:18px">✓</span><div><b>Dados protegidos</b><br>Usados somente para processar seu pedido e entrega.</div></div>
+<div class="product"><div class="product-row"><div class="gem">✦</div><div><h3 id="pname">Google AI Pro</h3><small>Plano Premium • Produto digital</small></div></div><div class="tags"><span>Gemini 3.1 Pro</span><span>5 TB</span><span>Deep Research</span><span>Google Flow</span></div></div>
+<div class="total"><span>Total do pedido</span><strong id="total">R$ 0,01</strong></div>
+<button class="continue" id="go" type="button">🔒 Continuar para PIX</button>
+<div id="error" class="error"></div>
+<p class="terms">Pagamento processado pelo Mercado Pago. A entrega somente é liberada após a confirmação do pagamento.</p>
+</section>
+<aside class="card box"><h2 class="side-title">Resumo do pagamento</h2><div class="pix">✦ <b>PIX</b><br>Você receberá um QR Code e Pix Copia e Cola na próxima etapa.</div>
+<div class="benefits"><div class="benefit"><i>✓</i><div><strong>Confirmação automática</strong><small>Mercado Pago + webhook</small></div></div><div class="benefit"><i>✓</i><div><strong>Entrega digital</strong><small>Código liberado após aprovação</small></div></div><div class="benefit"><i>✓</i><div><strong>Estoque controlado</strong><small>Um código por pedido</small></div></div></div>
+<div class="help"><b>Precisa de ajuda?</b><br>Entre em contato com o suporte da SamSolution.</div></aside>
+</div><div class="foot">© 2026 SamSolution • Checkout digital</div>
+</main>
+<script>
+let product={name:"Google AI Pro",price:0.01}, stock=0;
+const money=v=>Number(v).toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
+async function loadStore(){
+  const r=await fetch("/api/store"); const d=await r.json(); if(!r.ok) throw new Error(d.error||"Erro ao carregar produto.");
+  product=d.product; stock=d.stock; document.getElementById("pname").textContent=product.name; document.getElementById("total").textContent=money(product.price);
+}
+function showError(t){const x=document.getElementById("error");x.textContent=t;x.style.display="block"}
+document.getElementById("go").onclick=async()=>{
+ const n=document.getElementById("name").value.trim(), ph=document.getElementById("phone").value.trim(), em=document.getElementById("email").value.trim();
+ document.getElementById("error").style.display="none";
+ if(!n||!ph||!em)return showError("Preencha nome, WhatsApp e e-mail.");
+ if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/i.test(em.replace(/\s+/g,"")))return showError("Informe um e-mail válido.");
+ if(stock<1)return showError("Produto sem estoque.");
+ const b=document.getElementById("go"); b.disabled=true; b.textContent="Gerando PIX…";
+ try{
+  const r=await fetch("/api/qr",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({name:n,phone:ph,email:em,amount:product.price,description:product.name})});
+  const raw=await r.text(); let d={}; try{d=JSON.parse(raw)}catch{throw new Error(r.ok?"Resposta inválida do servidor.":`Servidor respondeu HTTP ${r.status}. Verifique a função /api/qr no Vercel.`)} if(!r.ok||!d.ok) throw new Error(d.error||"Não foi possível gerar o PIX.");
+  sessionStorage.setItem("samsolution_order",JSON.stringify(d));
+  location.href="pagamento-real.html";
+ }catch(err){showError(err.message);b.disabled=false;b.textContent="🔒 Continuar para PIX";}
+};
+loadStore().catch(e=>showError(e.message));
+</script>
+</body></html>

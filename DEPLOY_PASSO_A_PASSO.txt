@@ -1,0 +1,37 @@
+SAMSOLUTION — DEPLOY FINAL LIMPO PARA VERCEL
+
+Esta versão foi preparada para evitar falhas de upload/build:
+- projeto com index.html na raiz
+- API em /api
+- sem server.js/Express
+- sem vercel.json com runtime fixado
+- sem rotas API duplicadas
+- package.json mínimo
+- Node >= 20
+- endpoint /api/health para teste
+
+NO VERCEL
+1. Extraia o ZIP.
+2. Faça upload da PASTA que contém index.html e api/.
+3. Framework Preset: Other.
+4. Build Command: vazio.
+5. Output Directory: vazio.
+6. Deploy.
+
+ENVIRONMENT VARIABLES
+MP_ACCESS_TOKEN=SEU_ACCESS_TOKEN
+MP_WEBHOOK_SECRET=SEGREDO_DO_WEBHOOK
+PRODUCT_NAME=Google AI Pro
+PRODUCT_PRICE=0.01
+DELIVERY_CODE=GEMINI-DEMO-001
+
+TESTE DE FUNÇÃO
+https://SEU-DOMINIO.vercel.app/api/health
+
+Deve retornar:
+{"ok":true,"app":"SamSolution",...}
+
+WEBHOOK MERCADO PAGO
+https://SEU-DOMINIO.vercel.app/api/webhook/mercadopago
+
+Não coloque o Access Token no HTML.

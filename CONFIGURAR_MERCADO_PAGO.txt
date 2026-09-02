@@ -1,0 +1,44 @@
+SAMSOLUTION + MERCADO PAGO
+
+A integração agora está preparada para Vercel.
+
+1) Vercel > Settings > Environment Variables
+Crie:
+MP_ACCESS_TOKEN = seu Access Token de produção/teste
+MP_WEBHOOK_SECRET = chave secreta gerada em Webhooks
+PRODUCT_NAME = Google AI Pro
+PRODUCT_PRICE = 0.01
+
+2) Faça novo deploy.
+
+3) No Mercado Pago > Sua integração > Webhooks > Configurar notificações:
+URL:
+https://SEU-DOMINIO.vercel.app/api/webhook/mercadopago
+
+Selecione o evento:
+Order (Mercado Pago)
+
+4) O checkout chama:
+POST /api/mp/create-order
+
+5) A criação usa:
+POST https://api.mercadopago.com/v1/orders
+Type: qr
+config.qr.mode: dynamic
+X-Idempotency-Key: UUID novo
+
+6) Consulta:
+GET /api/mp/order?id=ORDER_ID
+que consulta:
+GET https://api.mercadopago.com/v1/orders/{order_id}
+
+7) O QR é gerado no navegador a partir de qr_data e o Pix Copia e Cola usa o mesmo valor.
+
+SEGURANÇA
+- Nunca coloque MP_ACCESS_TOKEN no HTML/JavaScript.
+- Nunca envie o token pelo chat.
+- Configure MP_WEBHOOK_SECRET para validar x-signature.
+- Use HTTPS no domínio.
+
+IMPORTANTE SOBRE ESTOQUE
+O backend original usa data.json para o modo local. Em Vercel, o filesystem não é banco persistente. Para produção, estoque/pedidos devem ficar em banco (Supabase/Postgres, por exemplo). A integração de cobrança já está separada em Functions para o Vercel.

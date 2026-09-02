@@ -1,0 +1,38 @@
+CORREÇÃO FINAL DO QR CODE — SAMSOLUTION
+
+O erro "Unexpected token T ... is not valid JSON" ocorre quando o navegador recebe uma página HTML do Vercel (normalmente 404/500) no lugar do JSON da função.
+
+Esta versão:
+1. Publica /api/qr através de api/qr/index.js.
+2. Não usa vercel.json com runtime manual.
+3. Retorna JSON em todos os caminhos de erro da função.
+4. O checkout detecta HTML/404 e mostra uma mensagem clara em vez de tentar JSON.parse.
+5. Usa POST /v1/orders com type=qr e config.qr.mode=dynamic.
+6. Converte type_response.qr_data em imagem QR e também entrega Pix Copia e Cola.
+
+NO VERCEL:
+- A raiz do projeto precisa conter index.html e api/.
+- Dentro de api deve existir qr/index.js.
+- Não deixe um vercel.json antigo no repositório.
+- Instale/deploy a versão inteira deste ZIP.
+
+ENVIRONMENT VARIABLES:
+MP_ACCESS_TOKEN=SEU_ACCESS_TOKEN
+MP_WEBHOOK_SECRET=SEU_SEGREDO
+PRODUCT_NAME=Google AI Pro
+PRODUCT_PRICE=0.01
+DELIVERY_CODE=GEMINI-DEMO-001
+
+TESTE DIRETO:
+POST https://SEU-DOMINIO.vercel.app/api/qr
+
+BODY:
+{
+  "amount": 0.01,
+  "description": "Google AI Pro",
+  "name": "Samuel",
+  "phone": "(99) 99999-9999",
+  "email": "SAMUEL@HOTMAIL.COM"
+}
+
+Se /api/qr retornar HTML, o deployment está servindo uma versão antiga ou a função não foi publicada.
