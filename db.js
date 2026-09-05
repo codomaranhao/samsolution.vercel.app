@@ -10,14 +10,26 @@ function getDatabaseUrl() {
 }
 function getPool() {
   if (pool) return pool;
-  const url = getDatabaseUrl();
-  if (!url) throw new Error("Banco de dados não configurado. Conecte um banco PostgreSQL ao projeto e defina POSTGRES_URL (ou DATABASE_URL).");
+  let url = getDatabaseUrl();
+  if (!url) throw new Error("Banco de dados não configurado. Defina POSTGRES_URL ou DATABASE_URL na Vercel.");
+
+  // Supabase/Vercel: alguns connection strings trazem sslmode=verify-full,
+  // o que faz o pg exigir o CA local e pode gerar "self-signed certificate in certificate chain".
+  // Para o runtime serverless, usamos TLS criptografado sem validação local do CA.
+  try {
+    const u = new URL(url);
+    if (u.searchParams.has('sslmode')) u.searchParams.set('sslmode', 'require');
+    if (u.searchParams.has('sslrootcert')) u.searchParams.delete('sslrootcert');
+    url = u.toString();
+  } catch (_) {}
+
   pool = new Pool({
     connectionString: url,
     max: 3,
     idleTimeoutMillis: 10000,
-    connectionTimeoutMillis: 8000,
-    ssl: { rejectUnauthorized: false }
+    connectionTimeoutMillis: 10000,
+    ssl: { rejectUnauthorized: false },
+    prepare: false
   });
   return pool;
 }
