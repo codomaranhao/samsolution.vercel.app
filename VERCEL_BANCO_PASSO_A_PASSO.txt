@@ -1,20 +1,22 @@
-CONFIGURAÇÃO DO BANCO NO VERCEL
+SAMSOLUTION — SUPABASE + VERCEL
 
-Vercel > projeto SamSolution > Settings > Environment Variables > Add New
+O banco do projeto samsolution já foi preparado com:
+- samsolution_products
+- samsolution_codes
+- samsolution_orders
 
-Name: POSTGRES_URL
-Value: postgresql://USUARIO:SENHA@HOST:5432/BANCO
+Na Supabase:
+Projeto > Connect > Transaction pooler
+Copie a connection string e coloque na Vercel como POSTGRES_URL.
 
-Não coloque aspas.
-Marque Production.
-Depois: Deployments > Redeploy.
+A aplicação usa SSL e rejectUnauthorized:false para compatibilidade com o pooler.
 
-Também configure:
-Name: MP_ACCESS_TOKEN
-Value: SEU_ACCESS_TOKEN_DO_MERCADO_PAGO
+Depois da variável salva, faça Redeploy.
 
-Depois abra /api/health.
-Resultado esperado:
-{"ok":true,"database":true,...}
+Teste:
+https://SEU-DOMINIO.vercel.app/api/health
 
-Se aparecer "self-signed certificate in certificate chain", este pacote já usa SSL com rejectUnauthorized:false. Nesse caso, o erro normalmente vem da URL/provedor do PostgreSQL, credenciais, host/porta ou do deploy antigo ainda ativo.
+Esperado:
+"ok": true
+"database": true
+"mercadopago": true

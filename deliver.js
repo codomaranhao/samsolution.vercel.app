@@ -9,8 +9,8 @@ module.exports=async(req,res)=>{
   if(!orderId) return res.status(400).json({ok:false,error:"Pedido inválido."});
   const mp=await mpRequest(`/v1/orders/${encodeURIComponent(orderId)}`);
   const payment=mp?.transactions?.payments?.[0]||{};
-  const status=mp.status||payment.status;
-  const paid=status==="processed";
+  const status=payment.status||mp.status;
+  const paid=status==="processed"||status==="approved";
   if(!paid) return res.status(402).json({ok:false,error:"Pagamento ainda não aprovado.",status});
   const result=await withTransaction(async client=>{
     const existing=await client.query("SELECT code_id FROM samsolution_orders WHERE id=$1 FOR UPDATE",[orderId]);

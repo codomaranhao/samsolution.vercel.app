@@ -1,44 +1,30 @@
-SAMSOLUTION + MERCADO PAGO
+SAMSOLUTION — MERCADO PAGO PIX
 
-A integração agora está preparada para Vercel.
+IMPORTANTE
+O Access Token do Mercado Pago é uma credencial secreta. Ele NÃO deve ficar dentro do ZIP, HTML, JavaScript do navegador ou GitHub.
 
-1) Vercel > Settings > Environment Variables
-Crie:
-MP_ACCESS_TOKEN = seu Access Token de produção/teste
-MP_WEBHOOK_SECRET = chave secreta gerada em Webhooks
-PRODUCT_NAME = Google AI Pro
-PRODUCT_PRICE = 0.01
+NA VERCEL
+1. Abra o projeto do SamSolution.
+2. Settings > Environment Variables.
+3. Crie:
+   MP_ACCESS_TOKEN = SEU ACCESS TOKEN DO MERCADO PAGO
+4. Crie também:
+   POSTGRES_URL = CONNECTION STRING DO SUPABASE (Transaction Pooler)
+5. Opcional:
+   PRODUCT_NAME = Google AI Pro
+   PRODUCT_PRICE = 0.01
+6. Salve e faça Redeploy sem cache.
 
-2) Faça novo deploy.
+PIX
+A API do backend usa POST /v1/orders do Mercado Pago, QR dinâmico, X-Idempotency-Key e lê type_response.qr_data. O Access Token fica somente no servidor.
 
-3) No Mercado Pago > Sua integração > Webhooks > Configurar notificações:
-URL:
-https://SEU-DOMINIO.vercel.app/api/webhook/mercadopago
+TESTE
+Abra /api/health no domínio da Vercel. O resultado deve mostrar:
+  database: true
+  mercadopago: true
 
-Selecione o evento:
-Order (Mercado Pago)
-
-4) O checkout chama:
-POST /api/mp/create-order
-
-5) A criação usa:
-POST https://api.mercadopago.com/v1/orders
-Type: qr
-config.qr.mode: dynamic
-X-Idempotency-Key: UUID novo
-
-6) Consulta:
-GET /api/mp/order?id=ORDER_ID
-que consulta:
-GET https://api.mercadopago.com/v1/orders/{order_id}
-
-7) O QR é gerado no navegador a partir de qr_data e o Pix Copia e Cola usa o mesmo valor.
+Depois faça uma compra de teste. O fluxo é:
+checkout > QR PIX > consulta da Order > pagamento aprovado > reserva de código > entrega.
 
 SEGURANÇA
-- Nunca coloque MP_ACCESS_TOKEN no HTML/JavaScript.
-- Nunca envie o token pelo chat.
-- Configure MP_WEBHOOK_SECRET para validar x-signature.
-- Use HTTPS no domínio.
-
-IMPORTANTE SOBRE ESTOQUE
-O backend original usa data.json para o modo local. Em Vercel, o filesystem não é banco persistente. Para produção, estoque/pedidos devem ficar em banco (Supabase/Postgres, por exemplo). A integração de cobrança já está separada em Functions para o Vercel.
+O token que apareceu em uma imagem/conversa deve ser considerado exposto. Gere/rotacione um novo Access Token no Mercado Pago antes de produção.

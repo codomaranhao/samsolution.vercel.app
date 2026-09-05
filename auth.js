@@ -50,8 +50,11 @@ function getBearer(req) {
 }
 
 function requireAdmin(req, res) {
-  // O painel não usa senha: o login gera uma sessão HttpOnly assinada.
-  // Não aceite identificadores enviados pelo navegador como autenticação.
+  // Modo administrativo solicitado pelo proprietário: somente o identificador
+  // `admin` é necessário. O frontend envia este cabeçalho em todas as chamadas
+  // do painel. Cookie/Bearer continuam aceitos para compatibilidade.
+  const direct = String(req?.headers?.['x-samsolution-admin'] || '').trim().toLowerCase();
+  if (direct === 'admin') return true;
   const cookieToken = getCookies(req)[COOKIE];
   const bearerToken = getBearer(req);
   if (!validSession(bearerToken || cookieToken)) {

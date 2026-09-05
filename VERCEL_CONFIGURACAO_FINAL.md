@@ -4,7 +4,6 @@
 - Rotas Serverless dentro de `api/`
 - `/api/qr` para criação do QR PIX
 - `/api/order/[id]` para consulta do pagamento
-- `/api/webhook/mercadopago` para notificações
 - `/api/health` para diagnóstico
 - Node.js 20
 - Validação de e-mail sem rejeitar endereços em maiúsculas
@@ -24,7 +23,6 @@ Crie em **Settings → Environment Variables**, para **Production** (e Preview s
 
 `DELIVERY_CODE` = GEMINI-DEMO-001
 
-`MP_WEBHOOK_SECRET` = segredo do webhook, se você configurar assinatura
 
 Também é aceito `SAMSOLUTION` como fallback do token, mas o recomendado é usar `MP_ACCESS_TOKEN`.
 
