@@ -1,0 +1,20 @@
+CONFIGURAÇÃO DO BANCO NO VERCEL
+
+Vercel > projeto SamSolution > Settings > Environment Variables > Add New
+
+Name: POSTGRES_URL
+Value: postgresql://USUARIO:SENHA@HOST:5432/BANCO
+
+Não coloque aspas.
+Marque Production.
+Depois: Deployments > Redeploy.
+
+Também configure:
+Name: MP_ACCESS_TOKEN
+Value: SEU_ACCESS_TOKEN_DO_MERCADO_PAGO
+
+Depois abra /api/health.
+Resultado esperado:
+{"ok":true,"database":true,...}
+
+Se aparecer "self-signed certificate in certificate chain", este pacote já usa SSL com rejectUnauthorized:false. Nesse caso, o erro normalmente vem da URL/provedor do PostgreSQL, credenciais, host/porta ou do deploy antigo ainda ativo.

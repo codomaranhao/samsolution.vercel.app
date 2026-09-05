@@ -1,0 +1,16 @@
+SAMSOLUTION — VERSÃO FINAL
+
+1) IMPORTANTE: os arquivos deste ZIP estão NA RAIZ. Não defina Root Directory para uma subpasta.
+2) Publique o conteúdo deste ZIP como um projeto novo no Vercel.
+3) Abra /admin — o painel não exige senha.
+4) O usuário administrativo é: admin
+5) Para salvar produto, estoque e pedidos, configure no Vercel:
+   POSTGRES_URL = sua conexão PostgreSQL
+   MP_ACCESS_TOKEN = seu novo token do Mercado Pago
+6) Depois de configurar as variáveis, faça Redeploy.
+7) Diagnóstico: /diagnostico.html
+8) API de saúde: /api/health
+
+O painel não depende de uma tela de login para abrir. A página admin envia o cabeçalho X-SamSolution-Admin: admin para as APIs administrativas.
+
+ATENÇÃO: esse modo sem senha é deliberadamente simples e não é seguro para um painel público. Troque por autenticação forte antes de produção real.

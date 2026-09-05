@@ -1,0 +1,25 @@
+SAMSOLUTION — PACOTE FINAL PARA VERCEL
+
+Este pacote já contém site + APIs + painel administrativo + PostgreSQL + Mercado Pago/PIX.
+
+ANTES DO REDEPLOY NA VERCEL:
+1) Settings > Environment Variables
+2) Adicione POSTGRES_URL = URL completa do seu PostgreSQL.
+3) Adicione MP_ACCESS_TOKEN = Access Token do Mercado Pago.
+4) Marque Production (e Preview/Development se desejar).
+5) Salve e faça Redeploy.
+
+O banco é inicializado automaticamente na primeira chamada da API/painel.
+Tabelas criadas automaticamente:
+- samsolution_products
+- samsolution_codes
+- samsolution_orders
+
+PAINEL: /admin
+USUÁRIO: admin
+SENHA: não usada (conforme solicitado).
+
+IMPORTANTE: o acesso sem senha não é seguro para uma loja pública. Para produção, recomenda-se proteger o painel com autenticação real.
+
+DIAGNÓSTICO: /api/health
+Se database=false, a POSTGRES_URL/DATABASE_URL está ausente ou a conexão está falhando.
