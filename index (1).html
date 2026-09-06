@@ -9,7 +9,7 @@
 <div class="notice">Carregando banco de dados online...</div>
 <div class="grid"><div class="card stat"><small>ESTOQUE DISPONÍVEL</small><strong id="stock">0</strong></div><div class="card stat"><small>PEDIDOS</small><strong id="orders">0</strong></div><div class="card stat"><small>APROVADOS</small><strong id="approved">0</strong></div></div>
 <div class="two"><section class="card"><div class="section-kicker">PRODUTO</div><h2>Configuração</h2><label>Nome</label><input id="pname"><label>Preço (R$)</label><input id="pprice" type="text" inputmode="decimal" autocomplete="off"><button class="btn btn-primary" id="save">Salvar produto</button></section>
-<section class="card"><div class="section-kicker">ESTOQUE</div><h2>Lançar códigos</h2><p class="fine">Um código por linha. Após um pagamento confirmado, o primeiro código disponível é reservado.</p><textarea id="codes" rows="7" placeholder="GEMINI-DEMO-001&#10;GEMINI-DEMO-002"></textarea><button class="btn btn-primary" id="add">Lançar códigos</button></section></div>
+<section class="card"><div class="section-kicker">ESTOQUE</div><h2>Lançar códigos</h2><p class="fine">Um código por linha. Após um pagamento confirmado, o primeiro código disponível é reservado.</p><input id="file" type="file" accept=".txt,.csv,text/plain,text/csv"><p class="fine">Você pode selecionar TXT/CSV (um código por linha) ou digitar abaixo.</p><textarea id="codes" rows="7" placeholder="COLE-UM-CODIGO-POR-LINHA"></textarea><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-primary" id="add">Lançar códigos</button><button class="mini" id="sync" type="button">Atualizar estoque</button></div></section></div>
 <section class="card" style="margin-top:18px"><h2>Estoque</h2><div id="inventory"></div></section>
 <section class="card" style="margin-top:18px"><h2>Pedidos</h2><div id="list"></div></section>
 </main>
@@ -45,6 +45,8 @@ async function load(){
   }
 }
 $('save').onclick=async()=>{try{const d=await api('/api/admin-product',{method:'POST',body:JSON.stringify({name:$('pname').value,price:$('pprice').value})});alert('Produto salvo com sucesso.');await load()}catch(e){alert(e.message)}};
+$('file').onchange=async()=>{const f=$('file').files[0];if(!f)return;const t=await f.text();$('codes').value=t.replace(/\r/g,'').split('\n').map(x=>x.trim()).filter(Boolean).join('\n');};
+$('sync').onclick=()=>load();
 $('add').onclick=async()=>{const a=$('codes').value.split(/\r?\n/).map(x=>x.trim()).filter(Boolean);if(!a.length)return alert('Digite pelo menos um código.');try{const d=await api('/api/admin-codes',{method:'POST',body:JSON.stringify({codes:a})});$('codes').value='';alert(`${d.added} código(s) adicionado(s). ${d.skipped} duplicado(s).`);await load()}catch(e){alert(e.message)}};
 $('logout').onclick=()=>location.replace('/');
 load();

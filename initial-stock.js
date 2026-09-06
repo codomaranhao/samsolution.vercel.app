@@ -1,7 +1,1 @@
-// Estoque inicial do SamSolution.
-// Este arquivo é carregado apenas pelo backend para semear o PostgreSQL.
-// Não é servido como arquivo estático.
-module.exports = [
-  "https://serviceactivation.google.com/subscription/new/AQCpiIE3FWaTU3E_YqXIRljjtSXw3rtY2d8pOwor9_I50xYfhxCqCWUZ8XufmMoOf96-x7ydGl4AhVHWi9L3osTXfFFol_aO04XfMlxI2EkZ068NLbQpGQBZUiuDKOw8ghgXWvRFlRCC-pkRkVUz4uYDujbmL5_9b5mhcoRlQoR4XNUI3bxSlfDNQ6VEfopwg9qDZG2Uy6J2aLJ973Bi8BY-G8nvSM9OTGxVHCLsGOO2QmW1swUTcHWDsxmQqCXuJ50n2Yal7OfYnFHv9w==",
-  "https://serviceactivation.google.com/subscription/new/AQCpiIG39XlKxMY0DQBS2rCWXt2sv-lCX21UeIkFawm94iz6xGK-KOxxfT78QbtvLgQClmPsF4IKThBBvU_7pSzyyp27vEqPkzGymeDKoY27Kf5UXZT8enQx0z277jEoLLrxDcchIImxP5wLyNiaaqOKCYiycV19ryNPQCbMh-lckmtrfYF2WJX03R-n21MgmJqv43OZxSP8EqpOyb1Aa5Vkd1dZIogQCFUaupS33Fgo5FdUjGYfAeT13IvZGVGdT_H1hHo-1_kiMmNn0Q=="
-];
+// Estoque inicial mantido exclusivamente no Supabase.\nmodule.exports = [];\n
