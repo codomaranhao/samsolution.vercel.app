@@ -1,40 +1,50 @@
-# SamSolution — Vercel + Mercado Pago PIX
+# SamSolution — configuração final Vercel + Supabase + Mercado Pago
 
-## O que foi corrigido
-- Rotas Serverless dentro de `api/`
-- `/api/qr` para criação do QR PIX
-- `/api/order/[id]` para consulta do pagamento
-- `/api/health` para diagnóstico
-- Node.js 20
-- Validação de e-mail sem rejeitar endereços em maiúsculas
-- Respostas de erro do Mercado Pago em JSON
-- `X-Idempotency-Key` automático
-- Compatibilidade temporária com a variável antiga `SAMSOLUTION`
+## Variáveis obrigatórias na Vercel
 
-## Environment Variables no Vercel
+- `POSTGRES_URL`: use a **Transaction Pooler** connection string da Supabase (porta 6543).
+- `MP_ACCESS_TOKEN`: Access Token de produção do Mercado Pago.
+- `ADMIN_SESSION_SECRET`: opcional, recomendado para sessões administrativas.
 
-Crie em **Settings → Environment Variables**, para **Production** (e Preview se quiser testar):
+Não coloque o Access Token dentro do código ou do ZIP.
 
-`MP_ACCESS_TOKEN` = seu Access Token atual do Mercado Pago
+## Fluxo
 
-`PRODUCT_NAME` = Google AI Pro
+1. `/checkout.html` chama `/api/qr`.
+2. `/api/qr` cria uma Order QR dinâmica no Mercado Pago.
+3. O QR é gerado a partir de `type_response.qr_data`.
+4. O pedido é salvo no PostgreSQL.
+5. `/api/order` consulta o status.
+6. `/api/webhook` recebe atualizações de Order quando configurado no Mercado Pago.
+7. `/api/deliver` só libera o primeiro código não usado depois de confirmar o pagamento.
+8. O código é marcado como usado no PostgreSQL.
 
-`PRODUCT_PRICE` = 0.01
+## Estoque enviado nesta versão
 
-`DELIVERY_CODE` = GEMINI-DEMO-001
+O estoque recebido do arquivo do usuário é semeado pelo backend no PostgreSQL na inicialização, usando `ON CONFLICT` para não duplicar códigos.
 
+## Webhook Mercado Pago
 
-Também é aceito `SAMSOLUTION` como fallback do token, mas o recomendado é usar `MP_ACCESS_TOKEN`.
+Depois de publicar o domínio, configure no Mercado Pago a URL:
 
-## Depois de salvar
-Faça **Redeploy** da branch `main` sem usar cache.
+`https://SEU-DOMINIO/api/webhook`
 
-## Testes
+Evento: **Order**.
+
+O checkout continua fazendo polling como mecanismo de contingência.
+
+## Teste
+
 Abra:
 
-`https://SEU-DOMINIO.vercel.app/api/health`
+`https://SEU-DOMINIO/api/health`
 
-Depois faça um checkout de teste de R$ 0,01.
+Esperado:
 
-## Segurança
-Nunca coloque o Access Token no HTML, JavaScript do navegador, GitHub ou ZIP público. Como um token foi exposto anteriormente, gere/renove o token no Mercado Pago antes de usar em produção.
+- `database: true`
+- `mercadopago: true`
+- `stock: 2` (ou o número atual de códigos disponíveis)
+
+## Observação de segurança
+
+O painel foi mantido no modo solicitado, com identificador `admin` sem senha. Isso não é adequado para uma loja pública. Recomenda-se adicionar autenticação forte antes de colocar a URL do painel em divulgação pública.

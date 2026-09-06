@@ -9,7 +9,10 @@
 <div class="notice">Carregando banco de dados online...</div>
 <div class="grid"><div class="card stat"><small>ESTOQUE DISPONÍVEL</small><strong id="stock">0</strong></div><div class="card stat"><small>PEDIDOS</small><strong id="orders">0</strong></div><div class="card stat"><small>APROVADOS</small><strong id="approved">0</strong></div></div>
 <div class="two"><section class="card"><div class="section-kicker">PRODUTO</div><h2>Configuração</h2><label>Nome</label><input id="pname"><label>Preço (R$)</label><input id="pprice" type="text" inputmode="decimal" autocomplete="off"><button class="btn btn-primary" id="save">Salvar produto</button></section>
-<section class="card"><div class="section-kicker">ESTOQUE</div><h2>Lançar códigos</h2><p class="fine">Um código por linha. Após um pagamento confirmado, o primeiro código disponível é reservado.</p><textarea id="codes" rows="7" placeholder="GEMINI-DEMO-001&#10;GEMINI-DEMO-002"></textarea><button class="btn btn-primary" id="add">Lançar códigos</button></section></div>
+<section class="card"><div class="section-kicker">ESTOQUE</div><h2>Lançar códigos</h2><p class="fine">Um código por linha. Após um pagamento confirmado, o primeiro código disponível é reservado.</p><textarea id="codes" rows="7" placeholder="GEMINI-DEMO-001&#10;GEMINI-DEMO-002"></textarea>
+<input id="codefile" type="file" accept=".txt,.csv,text/plain,text/csv" style="margin-top:12px">
+<div style="color:#718095;font-size:10px;margin-top:7px">Você também pode selecionar um TXT/CSV com 1 código por linha.</div>
+<button class="btn btn-primary" id="add">Lançar códigos</button></section></div>
 <section class="card" style="margin-top:18px"><h2>Estoque</h2><div id="inventory"></div></section>
 <section class="card" style="margin-top:18px"><h2>Pedidos</h2><div id="list"></div></section>
 </main>
@@ -45,7 +48,29 @@ async function load(){
   }
 }
 $('save').onclick=async()=>{try{const d=await api('/api/admin-product',{method:'POST',body:JSON.stringify({name:$('pname').value,price:$('pprice').value})});alert('Produto salvo com sucesso.');await load()}catch(e){alert(e.message)}};
-$('add').onclick=async()=>{const a=$('codes').value.split(/\r?\n/).map(x=>x.trim()).filter(Boolean);if(!a.length)return alert('Digite pelo menos um código.');try{const d=await api('/api/admin-codes',{method:'POST',body:JSON.stringify({codes:a})});$('codes').value='';alert(`${d.added} código(s) adicionado(s). ${d.skipped} duplicado(s).`);await load()}catch(e){alert(e.message)}};
+async function sendCodes(a){
+  a=[...new Set(a.map(x=>String(x||'').trim()).filter(Boolean))];
+  if(!a.length) return alert('Digite ou selecione pelo menos um código.');
+  if(a.length>5000) return alert('O limite por envio é de 5.000 códigos.');
+  try{
+    const d=await api('/api/admin-codes',{method:'POST',body:JSON.stringify({codes:a})});
+    $('codes').value=''; $('codefile').value='';
+    alert(`${d.added} código(s) adicionado(s). ${d.skipped} duplicado(s).`);
+    await load();
+  }catch(e){alert(e.message)}
+}
+$('add').onclick=()=>sendCodes($('codes').value.split(/\r?\n/));
+$('codefile').onchange=async(ev)=>{
+  const f=ev.target.files?.[0]; if(!f)return;
+  try{
+    const text=await f.text();
+    // CSV simples: usa a primeira coluna e ignora cabeçalho "codigo".
+    const a=text.split(/\r?\n/).map(line=>line.split(',')[0].replace(/^\s*["']|["']\s*$/g,'').trim())
+      .filter(x=>x && x.toLowerCase()!=='codigo' && x.toLowerCase()!=='code');
+    $('codes').value=a.join('\n');
+    alert(`${a.length} código(s) carregado(s) do arquivo. Clique em "Lançar códigos" para salvar.`);
+  }catch(e){alert('Não foi possível ler o arquivo.')}
+};
 $('logout').onclick=()=>location.replace('/');
 load();
 </script></body></html>

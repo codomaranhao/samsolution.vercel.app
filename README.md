@@ -36,7 +36,7 @@ Em **Settings → Environment Variables**, configure para Production:
 
 ```text
 MP_ACCESS_TOKEN=SEU_ACCESS_TOKEN_DO_MERCADO_PAGO
-POSTGRES_URL=SUA_URL_DE_POSTGRESQL
+POSTGRES_URL=SUA_CONNECTION_STRING_TRANSACTION_POOLER_DA_SUPABASE
 ```
 
 Depois faça **Redeploy**.

@@ -9,7 +9,7 @@ Na Supabase:
 Projeto > Connect > Transaction pooler
 Copie a connection string e coloque na Vercel como POSTGRES_URL.
 
-A aplicação usa SSL e rejectUnauthorized:false para compatibilidade com o pooler.
+A aplicação normaliza sslmode para `require` e usa TLS com `rejectUnauthorized:false`, evitando o erro de certificado local do pooler no ambiente serverless da Vercel.
 
 Depois da variável salva, faça Redeploy.
 

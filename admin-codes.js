@@ -9,7 +9,7 @@ module.exports=async function handler(req,res){
     await initDb();
     const body=typeof req.body==='string'?JSON.parse(req.body||'{}'):(req.body||{});
     const values=Array.isArray(body.codes)?body.codes:[];
-    const codes=[...new Set(values.map(v=>String(v||'').trim()).filter(Boolean))].slice(0,500);
+    const codes=[...new Set(values.map(v=>String(v||'').trim()).filter(Boolean))].slice(0,5000);
     if(!codes.length) return res.status(400).json({ok:false,error:'Informe ao menos um código.'});
     let added=0,skipped=0;
     await withTransaction(async client=>{
