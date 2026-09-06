@@ -16,3 +16,10 @@ IMPORTANTE:
 - Sem POSTGRES_URL, o painel mostrará que o banco está pendente e não conseguirá salvar dados.
 - Sem MP_ACCESS_TOKEN, o checkout não conseguirá gerar o PIX real.
 - Não publique o Access Token no HTML, GitHub ou ZIP.
+
+
+CORREÇÃO DE ROTEAMENTO
+- A raiz / força o index.html da loja.
+- /admin abre somente o painel administrativo.
+- Não configure Root Directory como admin.
+- Deixe Output Directory vazio para este projeto estático + Functions.
